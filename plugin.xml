@@ -1,0 +1,50 @@
+<?xml version='1.0' encoding='utf-8'?>
+<plugin id="cordova-plugin-tesseract" version="1.0.0" xmlns="http://apache.org/cordova/ns/plugins/1.0" xmlns:android="http://schemas.android.com/apk/res/android">
+    <name>Tesseract</name>
+    <js-module name="Tesseract" src="www/Tesseract.js">
+        <clobbers target="cordova.plugins.Tesseract" />
+    </js-module>
+    <platform name="android">
+        <config-file parent="/*" target="res/xml/config.xml">
+            <feature name="Tesseract">
+                <param name="android-package" value="com.github.centny.cordova.tess.Tesseract" />
+            </feature>
+        </config-file>
+        <config-file parent="/*" target="AndroidManifest.xml" />
+        <source-file src="src/android/Tesseract.java" target-dir="src/com/github/centny/cordova/tess" />
+        <framework src="src/android/tesseract.gradle" custom="true" type="gradleReference" />
+        <lib-file src="deps/android/aar/tesseract-release.aar" target="libs/tesseract.aar" />
+    </platform>
+    <platform name="ios">
+        <config-file parent="/*" target="config.xml">
+            <feature name="Tesseract">
+                <param name="ios-package" value="Tesseract" />
+            </feature>
+        </config-file>
+        <source-file src="src/objc/Tesseract.mm" compiler-flags="-std=c++11 -I../../plugins/cordova-plugin-tesseract/deps/ios/universal/include" />
+        <source-file src="deps/ios/universal/lib/libjpeg.a" framework="true" />
+        <source-file src="deps/ios/universal/lib/liblept.a" framework="true" />
+        <source-file src="deps/ios/universal/lib/libopenjp2.a" framework="true" />
+        <source-file src="deps/ios/universal/lib/libpng.a" framework="true" />
+        <source-file src="deps/ios/universal/lib/libtesseract.a" framework="true" />
+        <source-file src="deps/ios/universal/lib/libtiff.a" framework="true" />
+        <source-file src="deps/ios/universal/lib/libwebp.a" framework="true" />
+        <framework src="libz.tbd" />
+    </platform>
+    <platform name="osx">
+        <config-file parent="/*" target="config.xml">
+            <feature name="Tesseract">
+                <param name="ios-package" value="Tesseract" />
+            </feature>
+        </config-file>
+        <source-file src="src/objc/Tesseract.mm" compiler-flags="-std=c++11 -I../../deps/osx/include" />
+        <source-file src="../../deps/osx/lib/libjpeg.a" framework="true" />
+        <source-file src="../../deps/osx/lib/liblept.a" framework="true" />
+        <source-file src="../../deps/osx/lib/libopenjp2.a" framework="true" />
+        <source-file src="../../deps/osx/lib/libpng.a" framework="true" />
+        <source-file src="../../deps/osx/lib/libtesseract.a" framework="true" />
+        <source-file src="../../deps/osx/lib/libtiff.a" framework="true" />
+        <source-file src="../../deps/osx/lib/libwebp.a" framework="true" />
+        <framework src="libz.tbd" />
+    </platform>
+</plugin>

@@ -1,0 +1,27 @@
+{
+  "name": "cordova-plugin-tesseract",
+  "version": "1.0.0",
+  "description": "cordova plugin for bind tesseract",
+  "cordova": {
+    "id": "cordova-plugin-tesseract",
+    "platforms": [
+      "android",
+      "ios"
+    ]
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Centny/cordova-plugin-tesseract.git"
+  },
+  "keywords": [
+    "ecosystem:cordova",
+    "cordova-android",
+    "cordova-ios"
+  ],
+  "author": "Centny",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Centny/cordova-plugin-tesseract/issues"
+  },
+  "homepage": "https://github.com/Centny/cordova-plugin-tesseract#readme"
+}
