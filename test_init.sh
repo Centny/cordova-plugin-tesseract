@@ -14,12 +14,13 @@ else
     cordova plugin remove cordova-plugin-tesseract
 fi
 cordova plugin add ../cordova-plugin-tesseract/
-cp -rf ../cordova-plugin-tesseract/example/* ./www/
-cp -rf /usr/local/share/tessdata ./
-echo v1.0.0 >tessdata/version.txt
-cp -rf tessdata platforms/android/app/src/main/assets/
-cp -rf tessdata platforms/ios/Test/
-cp -rf tessdata platforms/osx/Test/
-cordova prepare android
-cordova prepare ios
-cordova prepare osx
+# cp -rf ../cordova-plugin-tesseract/example/* ./www/
+# cp -rf /usr/local/share/tessdata ./
+# echo v1.0.0 >tessdata/version.txt
+# cp -rf tessdata platforms/android/app/src/main/assets/
+# cp -rf tessdata platforms/ios/Test/
+# cp -rf tessdata platforms/osx/Test/
+# ln -s ~/deps ./
+# cordova prepare android
+# cordova prepare ios
+# cordova prepare osx

@@ -37,14 +37,15 @@
                 <param name="ios-package" value="Tesseract" />
             </feature>
         </config-file>
-        <source-file src="src/objc/Tesseract.mm" compiler-flags="-std=c++11 -I../../deps/osx/include" />
-        <source-file src="../../deps/osx/lib/libjpeg.a" framework="true" />
-        <source-file src="../../deps/osx/lib/liblept.a" framework="true" />
-        <source-file src="../../deps/osx/lib/libopenjp2.a" framework="true" />
-        <source-file src="../../deps/osx/lib/libpng.a" framework="true" />
-        <source-file src="../../deps/osx/lib/libtesseract.a" framework="true" />
-        <source-file src="../../deps/osx/lib/libtiff.a" framework="true" />
-        <source-file src="../../deps/osx/lib/libwebp.a" framework="true" />
+        <source-file src="src/objc/Tesseract.mm" compiler-flags="-std=c++11 -I../../plugins/cordova-plugin-tesseract/deps/osx/include" />
+        <source-file src="deps/osx/lib/libjpeg.a" framework="true" />
+        <source-file src="deps/osx/lib/liblept.a" framework="true" />
+        <source-file src="deps/osx/lib/libopenjp2.a" framework="true" />
+        <source-file src="deps/osx/lib/libpng.a" framework="true" />
+        <source-file src="deps/osx/lib/libtesseract.a" framework="true" />
+        <source-file src="deps/osx/lib/libtiff.a" framework="true" />
+        <source-file src="deps/osx/lib/libwebp.a" framework="true" />
         <framework src="libz.tbd" />
     </platform>
+    <hook type="before_plugin_install" src="scripts/beforeInstall.js" />
 </plugin>
