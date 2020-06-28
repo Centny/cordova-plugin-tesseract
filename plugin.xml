@@ -48,9 +48,8 @@
         <framework src="libz.tbd" />
     </platform>
     <platform name="windows">
-        <js-module name="Tesseract" src="src/windows/Tesseract.js">
-            <runs target="" />
-        </js-module>
+        <framework src="src/windows/tessc/tessc.vcxproj" type="projectReference" target="win" />
+        <framework src="src/windows/tessjs/tessjs.csproj" type="projectReference" target="win" />
     </platform>
     <hook src="scripts/beforeInstall.js" type="before_plugin_install" />
 </plugin>

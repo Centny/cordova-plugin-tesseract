@@ -2,6 +2,7 @@ module.exports = async function (context) {
     var cp = require('child_process');
     async function spawn(cmd, args) {
         return new Promise((resolve, reject) => {
+            console.log("spawning " + cmd);
             var runner = cp.spawn(cmd, args, { encoding: 'utf-8' });
             runner.stdout.on('data', function (info) {
                 process.stdout.write(info);
@@ -18,13 +19,14 @@ module.exports = async function (context) {
                 }
             });
             runner.on('error', (err) => {
+                console.log(cmd + " error is ", err);
                 reject(err)
             });
         })
     }
     console.log("running beforePluginInstall on ", process.cwd());
     if (process.platform == "win32") {
-        await spawn("./plugins/cordova-plugin-tesseract/scripts/beforePluginInstall.bat");
+        await spawn("cmd", ["/c", "plugins\\cordova-plugin-tesseract\\scripts\\beforePluginInstall.bat"]);
     } else {
         await spawn("./plugins/cordova-plugin-tesseract/scripts/beforePluginInstall.sh");
     }

@@ -5,8 +5,7 @@
   "cordova": {
     "id": "cordova-plugin-tesseract",
     "platforms": [
-      "android",
-      "ios"
+      "windows"
     ]
   },
   "repository": {

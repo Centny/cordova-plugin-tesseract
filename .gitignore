@@ -5,3 +5,17 @@ deps/android/arm64-v8a
 deps/android/armeabi-v7a
 deps/android/x86
 deps/android/x86_64
+.vs
+Debug
+Release
+bin
+obj
+x86
+x64
+src/windows/.vs
+src/windows/app/AppPackages
+src/windows/deps/
+src/windows/test/tessdata
+src/windows/app/tessdata
+src/windows/tessrawc/tessrawc.vcxproj.user
+*.pfx

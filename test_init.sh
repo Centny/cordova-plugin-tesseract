@@ -7,14 +7,17 @@ if [ "$1" == "clean" ]; then
 fi
 cd cordova-plugin-tesseract-test
 if [ "$1" == "clean" ]; then
-    cordova platform add android
-    cordova platform add ios
-    cordova platform add osx
+    # cordova platform add android
+    # cordova platform add ios
+    # cordova platform add osx
+    cordova platform add windows
 else
-    cordova plugin remove cordova-plugin-tesseract
+    if [ -d plugins/cordova-plugin-tesseract ];then
+        cordova plugin remove cordova-plugin-tesseract
+    fi
 fi
 cordova plugin add ../cordova-plugin-tesseract/
-# cp -rf ../cordova-plugin-tesseract/example/* ./www/
+cp -rf ../cordova-plugin-tesseract/example/* ./www/
 # cp -rf /usr/local/share/tessdata ./
 # echo v1.0.0 >tessdata/version.txt
 # cp -rf tessdata platforms/android/app/src/main/assets/
@@ -24,3 +27,4 @@ cordova plugin add ../cordova-plugin-tesseract/
 # cordova prepare android
 # cordova prepare ios
 # cordova prepare osx
+cordova prepare windows

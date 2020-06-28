@@ -69,9 +69,9 @@ var app = {
             console.log(info.innerText);
             var data = await this.toDataURL("img/chi_sim.png", "png");
             data = data.replace("data:image/png;base64,", "");
-            var text1 = await cordova.plugins.Tesseract.recognize("png", data);
+            var text1 = await cordova.plugins.Tesseract.recognize(data);
             var textUsed1 = new Date().getTime();
-            var text2 = await cordova.plugins.Tesseract.recognize("png", data, 100, 10, 1286, 648);
+            var text2 = await cordova.plugins.Tesseract.recognize(data, 100, 10, 1286, 648);
             var textUsed2 = new Date().getTime();
             info.innerText =
                 "b used " + (bootUsed - begin) + "/" + (textUsed2 - begin) + "ms\n" +
