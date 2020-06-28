@@ -12,8 +12,9 @@
         </config-file>
         <config-file parent="/*" target="AndroidManifest.xml" />
         <source-file src="src/android/Tesseract.java" target-dir="src/com/github/centny/cordova/tess" />
-        <framework custom="true" src="src/android/tesseract.gradle" type="gradleReference" />
-        <lib-file src="deps/android/aar/tesseract-release.aar" target="libs/tesseract.aar" />
+        <!-- <framework custom="true" src="src/android/tesseract.gradle" type="gradleReference" /> -->
+        <framework src="src/android/tesseract" custom="true" />
+        <!-- <lib-file src="deps/android/aar/tesseract-release.aar" target="libs/tesseract.aar" /> -->
     </platform>
     <platform name="ios">
         <config-file parent="/*" target="config.xml">
@@ -51,5 +52,4 @@
         <framework src="src/windows/tessc/tessc.vcxproj" type="projectReference" target="win" />
         <framework src="src/windows/tessjs/tessjs.csproj" type="projectReference" target="win" />
     </platform>
-    <hook src="scripts/beforeInstall.js" type="before_plugin_install" />
 </plugin>

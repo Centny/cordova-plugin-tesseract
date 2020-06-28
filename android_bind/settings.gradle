@@ -1,2 +1,0 @@
-include ':app', ':tesseract'
-rootProject.name='android_bind'

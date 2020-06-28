@@ -1,11 +1,9 @@
-
-dependencies {
-  implementation fileTree(dir: 'libs', include: '*.aar')
+repositories {
+  flatDir {
+    dirs '/Users/vty/git/owlreader/cordova-plugin-tesseract-test/plugins/cordova-plugin-tesseract/src/android'
+  }
 }
 
-android {
-  packagingOptions {
-    exclude 'META-INF/NOTICE'
-    exclude 'META-INF/LICENSE'
-  }
+dependencies {
+  compile name: 'tesseract'
 }
