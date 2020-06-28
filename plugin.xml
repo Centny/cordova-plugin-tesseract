@@ -12,9 +12,7 @@
         </config-file>
         <config-file parent="/*" target="AndroidManifest.xml" />
         <source-file src="src/android/Tesseract.java" target-dir="src/com/github/centny/cordova/tess" />
-        <!-- <framework custom="true" src="src/android/tesseract.gradle" type="gradleReference" /> -->
         <framework src="src/android/tesseract" custom="true" />
-        <!-- <lib-file src="deps/android/aar/tesseract-release.aar" target="libs/tesseract.aar" /> -->
     </platform>
     <platform name="ios">
         <config-file parent="/*" target="config.xml">
@@ -22,14 +20,7 @@
                 <param name="ios-package" value="Tesseract" />
             </feature>
         </config-file>
-        <source-file compiler-flags="-std=c++11 -I../../plugins/cordova-plugin-tesseract/deps/ios/universal/include" src="src/objc/Tesseract.mm" />
-        <source-file framework="true" src="deps/ios/universal/lib/libjpeg.a" />
-        <source-file framework="true" src="deps/ios/universal/lib/liblept.a" />
-        <source-file framework="true" src="deps/ios/universal/lib/libopenjp2.a" />
-        <source-file framework="true" src="deps/ios/universal/lib/libpng.a" />
-        <source-file framework="true" src="deps/ios/universal/lib/libtesseract.a" />
-        <source-file framework="true" src="deps/ios/universal/lib/libtiff.a" />
-        <source-file framework="true" src="deps/ios/universal/lib/libwebp.a" />
+        <source-file src="src/objc/Tesseract.mm" />
         <framework src="libz.tbd" />
     </platform>
     <platform name="osx">
@@ -38,14 +29,7 @@
                 <param name="ios-package" value="Tesseract" />
             </feature>
         </config-file>
-        <source-file compiler-flags="-std=c++11 -I../../plugins/cordova-plugin-tesseract/deps/osx/include" src="src/objc/Tesseract.mm" />
-        <source-file framework="true" src="deps/osx/lib/libjpeg.a" />
-        <source-file framework="true" src="deps/osx/lib/liblept.a" />
-        <source-file framework="true" src="deps/osx/lib/libopenjp2.a" />
-        <source-file framework="true" src="deps/osx/lib/libpng.a" />
-        <source-file framework="true" src="deps/osx/lib/libtesseract.a" />
-        <source-file framework="true" src="deps/osx/lib/libtiff.a" />
-        <source-file framework="true" src="deps/osx/lib/libwebp.a" />
+        <source-file src="src/objc/Tesseract.mm" />
         <framework src="libz.tbd" />
     </platform>
     <platform name="windows">

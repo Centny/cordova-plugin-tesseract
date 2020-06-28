@@ -1,14 +1,16 @@
 /********* Tesseract.m Cordova Plugin Implementation *******/
 
 #import <Cordova/CDV.h>
-#undef fract1
-#include <leptonica/allheaders.h>
-#include <tesseract/baseapi.h>
+#if TARGET_OS_OSX
+#import <tessosx/tess.h>
+#else
+#import <tessios/tess.h>
+#endif
 
 @interface Tesseract : CDVPlugin {
   // Member variables go here.
 }
-@property(nonatomic) tesseract::TessBaseAPI *tess;
+@property(nonatomic) void *tess;
 - (void)bootstrap:(CDVInvokedUrlCommand *)command;
 - (void)recognize:(CDVInvokedUrlCommand *)command;
 @end
@@ -18,7 +20,7 @@
 - (void)bootstrap:(CDVInvokedUrlCommand *)command {
   CDVPluginResult *result = nil;
   if (self.tess) {
-    self.tess->End();
+    tess_shutdown(self.tess);
     self.tess = 0;
   }
   NSError *error;
@@ -59,15 +61,14 @@
     result = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR
                                messageAsString:@"traineddata not exists"];
   } else {
-    tesseract::TessBaseAPI *tess = new tesseract::TessBaseAPI();
-    if (tess->Init([datapath UTF8String], [language UTF8String])) {
-      result = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR
-                                 messageAsString:@"init fail"];
-      tess->End();
-    } else {
+    void *tess = tess_bootstrap(datapath, language);
+    if (tess) {
       result = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK
                                  messageAsString:@"ok"];
       self.tess = tess;
+    } else {
+      result = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR
+                                 messageAsString:@"init fail"];
     }
   }
   [self.commandDelegate sendPluginResult:result callbackId:command.callbackId];
@@ -82,60 +83,40 @@
                                 callbackId:command.callbackId];
     return;
   }
-  if (command.arguments.count < 2 ||
-      ![command.arguments[0] isKindOfClass:[NSString class]] ||
-      ![command.arguments[1] isKindOfClass:[NSString class]]) {
-    result =
-        [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR
-                          messageAsString:@"type/image argument is required"];
+  if (command.arguments.count < 1 ||
+      ![command.arguments[0] isKindOfClass:[NSString class]]) {
+    result = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR
+                               messageAsString:@"image argument is required"];
     [self.commandDelegate sendPluginResult:result
                                 callbackId:command.callbackId];
     return;
   }
   // Open input image with leptonica library
-  NSString *type = command.arguments[0];
-  NSString *data = command.arguments[1];
-  NSData *img = [[NSData alloc] initWithBase64EncodedString:data options:0];
-  Pix *image;
-  if ([@"jpg" isEqualToString:type]) {
-    image =
-        pixReadMemJpeg((const l_uint8 *)[img bytes], img.length, 0, 0, 0, 0);
-  } else {
-    image = pixReadMemPng((const l_uint8 *)[img bytes], img.length);
+  NSString *image = command.arguments[0];
+  int left = 0, top = 0, width = 0, height = 0;
+  if (command.arguments.count == 5) {
+    if ([command.arguments[1] isKindOfClass:[NSNumber class]]) {
+      left = [command.arguments[1] intValue];
+    }
+    if ([command.arguments[2] isKindOfClass:[NSNumber class]]) {
+      top = [command.arguments[2] intValue];
+    }
+    if ([command.arguments[3] isKindOfClass:[NSNumber class]]) {
+      width = [command.arguments[3] intValue];
+    }
+    if ([command.arguments[4] isKindOfClass:[NSNumber class]]) {
+      height = [command.arguments[4] intValue];
+    }
   }
-  if (image) {
-    self.tess->SetImage(image);
-    int left = 0, top = 0, width = 0, height = 0;
-    if (command.arguments.count == 5) {
-      if ([command.arguments[2] isKindOfClass:[NSNumber class]]) {
-        left = [command.arguments[2] intValue];
-      }
-      if ([command.arguments[3] isKindOfClass:[NSNumber class]]) {
-        top = [command.arguments[3] intValue];
-      }
-      if ([command.arguments[4] isKindOfClass:[NSNumber class]]) {
-        width = [command.arguments[4] intValue];
-      }
-      if ([command.arguments[5] isKindOfClass:[NSNumber class]]) {
-        height = [command.arguments[5] intValue];
-      }
-      self.tess->SetRectangle(left, top, width, height);
-    }
-    // Get OCR result
-    char *outText = self.tess->GetUTF8Text();
-    if (outText) {
-      NSString *text = [NSString stringWithUTF8String:outText];
-      delete[] outText;
-      result = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK
-                                 messageAsString:text];
-    } else {
-      result = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR
-                                 messageAsString:@"recognize fail"];
-    }
-    pixDestroy(&image);
+  NSString *error;
+  NSString *text;
+  text = tess_recognize(self.tess, &error, image, left, top, width, height);
+  if (text) {
+    result = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK
+                               messageAsString:text];
   } else {
     result = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR
-                               messageAsString:@"wrap image fail"];
+                               messageAsString:error];
   }
   [self.commandDelegate sendPluginResult:result callbackId:command.callbackId];
 }
