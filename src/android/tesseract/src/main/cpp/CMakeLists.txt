@@ -47,9 +47,8 @@ target_link_libraries(tesseract PRIVATE
         -fopenmp -fPIC
         ${CMAKE_SOURCE_DIR}/../../../../../../../deps/android/${ANDROID_ABI}/lib/libjpeg.a
         ${CMAKE_SOURCE_DIR}/../../../../../../../deps/android/${ANDROID_ABI}/lib/liblept.a
-        ${CMAKE_SOURCE_DIR}/../../../../../../../deps/android/${ANDROID_ABI}/lib/libleptonica.a
         ${CMAKE_SOURCE_DIR}/../../../../../../../deps/android/${ANDROID_ABI}/lib/libopenjp2.a
-        ${CMAKE_SOURCE_DIR}/../../../../../../../deps/android/${ANDROID_ABI}/lib/libpng.a
+        ${CMAKE_SOURCE_DIR}/../../../../../../../deps/android/${ANDROID_ABI}/lib/libpng16.a
         ${CMAKE_SOURCE_DIR}/../../../../../../../deps/android/${ANDROID_ABI}/lib/libtesseract.a
         ${CMAKE_SOURCE_DIR}/../../../../../../../deps/android/${ANDROID_ABI}/lib/libtiff.a
         ${CMAKE_SOURCE_DIR}/../../../../../../../deps/android/${ANDROID_ABI}/lib/libturbojpeg.a

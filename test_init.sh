@@ -21,7 +21,9 @@ else
     fi
 fi
 cordova plugin add ../cordova-plugin-tesseract/
-ln -s ~/deps ./
+if [ ! -d deps ];then
+    ln -s ~/deps ./
+fi
 cp -rf ../cordova-plugin-tesseract/example/* ./www/
 if [ "$sys" == "Darwin" ]; then
     cordova prepare android
